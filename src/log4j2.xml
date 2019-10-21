@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <Properties>
+        <Property name="logPath">target/logs</Property>
+    </Properties>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="AppFileAppender" fileName="${logPath}/conftrace.log" 
+            filePattern="${logPath}/conftrace-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} | [%t] %-5level %l: %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy min="1" max="4" />
+        </RollingFile>
+    </appenders>
+    <loggers>
+        <root level="warn">
+            <appender-ref ref="Console" />
+            <appender-ref ref="AppFileAppender" />
+        </root>
+        <logger name="com.ouc" level="info" />
+        <logger name="org.apache" level="info" />
+    </loggers>
+</configuration>
